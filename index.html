@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +13,7 @@
             --soft-red: #FF6B81;
             --dark-pink: #e85a71;
             --white: #ffffff;
-            --shadow: 0 10px 30px rgba(0,0,0,0.08);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
         }
 
         * {
@@ -38,12 +39,24 @@
             height: 100vh;
         }
 
-        .hidden { display: none !important; }
-        
-        .fade-in { animation: fadeIn 0.8s ease-out forwards; }
+        .hidden {
+            display: none !important;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Progress Bar */
@@ -53,9 +66,10 @@
             left: 0;
             width: 100%;
             height: 6px;
-            background: rgba(255,192,203,0.2);
+            background: rgba(255, 192, 203, 0.2);
             z-index: 1100;
         }
+
         #progress-bar {
             width: 0%;
             height: 100%;
@@ -96,14 +110,34 @@
             width: 80%;
             max-width: 280px;
         }
-        .btn-main:hover { background-color: var(--dark-pink); transform: translateY(-2px); }
-        .btn-main:active { transform: scale(0.95); }
-        .btn-next { background-color: var(--dark-pink); margin-top: 30px; animation: pulse 2s infinite; }
+
+        .btn-main:hover {
+            background-color: var(--dark-pink);
+            transform: translateY(-2px);
+        }
+
+        .btn-main:active {
+            transform: scale(0.95);
+        }
+
+        .btn-next {
+            background-color: var(--dark-pink);
+            margin-top: 30px;
+            animation: pulse 2s infinite;
+        }
 
         @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(232, 90, 113, 0.4); }
-            70% { box-shadow: 0 0 0 15px rgba(232, 90, 113, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(232, 90, 113, 0); }
+            0% {
+                box-shadow: 0 0 0 0 rgba(232, 90, 113, 0.4);
+            }
+
+            70% {
+                box-shadow: 0 0 0 15px rgba(232, 90, 113, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(232, 90, 113, 0);
+            }
         }
 
         /* Step Content */
@@ -136,7 +170,12 @@
             text-align: left;
             margin: 20px 0;
         }
-        .timeline-item { margin-bottom: 25px; position: relative; }
+
+        .timeline-item {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
         .timeline-item::before {
             content: '❤';
             position: absolute;
@@ -156,6 +195,7 @@
             max-width: 360px;
             margin: 25px 0;
         }
+
         .card {
             aspect-ratio: 1/1;
             background: var(--pink-pastel);
@@ -169,25 +209,139 @@
             position: relative;
             transform-style: preserve-3d;
         }
-        .card.flipped { transform: rotateY(180deg); background: white; border: 2px solid var(--pink-pastel); }
-        .card .front, .card .back { position: absolute; backface-visibility: hidden; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
-        .card .back { transform: rotateY(180deg); }
+
+        .card.flipped {
+            transform: rotateY(180deg);
+            background: white;
+            border: 2px solid var(--pink-pastel);
+        }
+
+        .card .front,
+        .card .back {
+            position: absolute;
+            backface-visibility: hidden;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card .back {
+            transform: rotateY(180deg);
+        }
 
         /* Slider */
-        .slider-container { width: 100%; max-width: 400px; overflow: hidden; border-radius: 25px; box-shadow: var(--shadow); position: relative; }
-        .slider-track { display: flex; transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
-        .slide { min-width: 100%; height: 300px; display: flex; align-items: center; justify-content: center; font-size: 5rem; background: #fdfdfd; }
-        .slide img { width: 100%; height: 100%; object-fit: cover; border-radius: 25px; }
+        .slider-container {
+            width: 100%;
+            max-width: 400px;
+            overflow: hidden;
+            border-radius: 25px;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .slider-track {
+            display: flex;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            background: #fdfdfd;
+            position: relative;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 25px;
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        /* Navigation Buttons */
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.7);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10;
+            font-size: 1.2rem;
+            color: var(--soft-red);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .nav-btn.prev {
+            left: 10px;
+        }
+
+        .nav-btn.next {
+            right: 10px;
+        }
 
         /* Gift Animation */
-        .gift-box { font-size: 7rem; cursor: pointer; transition: 0.3s; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1)); }
-        .gift-box:hover { transform: scale(1.1); }
-        .gift-box.open { animation: bounceIn 0.8s ease forwards; }
+        .gift-box {
+            width: 150px;
+            height: 150px;
+            font-size: 7rem;
+            cursor: pointer;
+            transition: 0.3s;
+            filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .gift-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+
+        .gift-box:hover {
+            transform: scale(1.1);
+        }
+
+        .gift-box.open {
+            animation: bounceIn 0.8s ease forwards;
+            background: white;
+            /* Optional: white background for photos */
+        }
 
         @keyframes bounceIn {
-            0% { transform: scale(0.3); opacity: 0; }
-            50% { transform: scale(1.05); opacity: 1; }
-            100% { transform: scale(1); }
+            0% {
+                transform: scale(0.3);
+                opacity: 0;
+            }
+
+            50% {
+                transform: scale(1.05);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1);
+            }
         }
 
         /* Final Header */
@@ -204,23 +358,90 @@
         }
 
         /* UI Elements */
-        .audio-toggle { position: fixed; bottom: 25px; right: 25px; background: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow); z-index: 1000; cursor: pointer; border: 2px solid var(--cream); }
-        .floating-heart { position: fixed; pointer-events: none; z-index: 999; animation: floatUp 2.5s ease-out forwards; font-size: 1.5rem; }
-        @keyframes floatUp { 
-            0% { transform: translateY(0) scale(1) rotate(0); opacity: 1; } 
-            100% { transform: translateY(-150px) scale(2) rotate(45deg); opacity: 0; } 
+        .audio-toggle {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            cursor: pointer;
+            border: 2px solid var(--cream);
         }
-        
+
+        .floating-heart {
+            position: fixed;
+            pointer-events: none;
+            z-index: 999;
+            animation: floatUp 2.5s ease-out forwards;
+            font-size: 1.5rem;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) scale(1) rotate(0);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-150px) scale(2) rotate(45deg);
+                opacity: 0;
+            }
+        }
+
         @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-            40% {transform: translateY(-10px);}
-            60% {transform: translateY(-5px);}
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-10px);
+            }
+
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        /* Falling Animation */
+        .falling-item {
+            position: fixed;
+            top: -100px;
+            z-index: 1500;
+            pointer-events: none;
+            animation: fallDown linear forwards;
+        }
+
+        @keyframes fallDown {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
         }
     </style>
 </head>
+
 <body>
 
-    <div id="progress-container" class="hidden"><div id="progress-bar"></div></div>
+    <div id="progress-container" class="hidden">
+        <div id="progress-bar"></div>
+    </div>
 
     <!-- Splash Screen -->
     <div id="splash-screen">
@@ -237,7 +458,7 @@
     </audio>
 
     <div id="story-container" class="hidden">
-        
+
         <!-- Step 1: Timeline -->
         <div id="step-1" class="step-content">
             <h2 style="color: var(--dark-pink); margin-bottom: 20px;">จุดเริ่มต้นของเรา 🗓️</h2>
@@ -264,12 +485,14 @@
         <div id="step-2" class="step-content hidden">
             <h2 style="color: var(--dark-pink); margin-bottom: 20px;">เหตุผลที่รักเธอ 💌</h2>
             <div class="section-card">
-                <div id="reason-box" style="min-height: 120px; display: flex; align-items: center; justify-content: center; padding: 10px;">
+                <div id="reason-box"
+                    style="min-height: 120px; display: flex; align-items: center; justify-content: center; padding: 10px;">
                     <p id="reason-text" style="font-size: 1.1rem; color: #555;">ลองกดปุ่มด้านล่างสิมีอะไรจะบอก...</p>
                 </div>
             </div>
             <button class="btn-main" onclick="nextReason()">💌 สุ่มเหตุผลที่รัก</button>
-            <button id="next-to-3" class="btn-main btn-next hidden" onclick="goToStep(3)">ต่อไป: อัลบั้มของเรา 📸</button>
+            <button id="next-to-3" class="btn-main btn-next hidden" onclick="goToStep(3)">ต่อไป: อัลบั้มของเรา
+                📸</button>
         </div>
 
         <!-- Step 3: Gallery -->
@@ -277,13 +500,22 @@
             <h2 style="color: var(--dark-pink); margin-bottom: 20px;">ความทรงจำที่งดงาม 📸</h2>
             <div class="slider-container" id="slider">
                 <div class="slider-track" id="slider-track">
-                    <div class="slide"><img src="image/lovelove (1).jpg" alt="Memory 1" onerror="this.src='https://placehold.co/400x300?text=Memory+1'"></div>
-                    <div class="slide"><img src="image/lovelove (2).jpg" alt="Memory 2" onerror="this.src='https://placehold.co/400x300?text=Memory+2'"></div>
-                    <div class="slide"><img src="image/lovelove (3).jpg" alt="Memory 3" onerror="this.src='https://placehold.co/400x300?text=Memory+3'"></div>
-                    <div class="slide"><img src="image/lovelove (4).jpg" alt="Memory 4" onerror="this.src='https://placehold.co/400x300?text=Memory+4'"></div>
-                    <div class="slide"><img src="image/lovelove (5).jpg" alt="Memory 5" onerror="this.src='https://placehold.co/400x300?text=Memory+5'"></div>
-                    <div class="slide"><img src="image/lovelove (6).jpg" alt="Memory 6" onerror="this.src='https://placehold.co/400x300?text=Memory+6'"></div>
+                    <div class="slide"><img src="image/lovelove (1).jpg" alt="Memory 1"
+                            onerror="this.src='https://placehold.co/400x300?text=Memory+1'"></div>
+                    <div class="slide"><img src="image/lovelove (2).jpg" alt="Memory 2"
+                            onerror="this.src='https://placehold.co/400x300?text=Memory+2'"></div>
+                    <div class="slide"><img src="image/lovelove (3).jpg" alt="Memory 3"
+                            onerror="this.src='https://placehold.co/400x300?text=Memory+3'"></div>
+                    <div class="slide"><img src="image/lovelove (4).jpg" alt="Memory 4"
+                            onerror="this.src='https://placehold.co/400x300?text=Memory+4'"></div>
+                    <div class="slide"><img src="image/lovelove (5).jpg" alt="Memory 5"
+                            onerror="this.src='https://placehold.co/400x300?text=Memory+5'"></div>
+                    <div class="slide"><img src="image/lovelove (6).jpg" alt="Memory 6"
+                            onerror="this.src='https://placehold.co/400x300?text=Memory+6'"></div>
                 </div>
+                <!-- Navigation Buttons -->
+                <button class="nav-btn prev" onclick="moveSlide(-1)">&#10094;</button>
+                <button class="nav-btn next" onclick="moveSlide(1)">&#10095;</button>
             </div>
             <p style="margin-top: 15px; font-size: 0.9rem; color: #999;">(ลองปัดซ้าย-ขวา เพื่อดูภาพถัดไป)</p>
             <button class="btn-main btn-next" onclick="goToStep(4)">ต่อไป: ทดสอบความจำ 💘</button>
@@ -294,7 +526,8 @@
             <h2 style="color: var(--dark-pink); margin-bottom: 10px;">จับคู่หัวใจ 💘</h2>
             <p style="margin-bottom: 20px; font-size: 0.9rem;">หาคู่ที่เหมือนกันให้เจอเพื่อปลดล็อกของขวัญ!</p>
             <div class="game-grid" id="game-grid"></div>
-            <button id="next-to-5" class="btn-main btn-next hidden" onclick="goToStep(5)">ต่อไป: ของขวัญสุดท้าย 🎁</button>
+            <button id="next-to-5" class="btn-main btn-next hidden" onclick="goToStep(5)">ต่อไป: ของขวัญสุดท้าย
+                🎁</button>
         </div>
 
         <!-- Step 5: Surprise -->
@@ -315,9 +548,9 @@
                     <div style="font-size: 1.5rem;">↓</div>
                 </div>
             </header>
-            
+
             <div id="full-page-content"></div>
-            
+
             <div class="step-content" style="background: white;">
                 <h2 style="color: var(--soft-red);">สัญญาใจ ✍</h2>
                 <div class="section-card">
@@ -350,7 +583,7 @@
             const btn = document.getElementById('music-btn');
 
             splash.style.opacity = '0';
-            
+
             // Start music immediately upon user interaction
             audio.play().then(() => {
                 btn.innerText = '🎵';
@@ -369,16 +602,16 @@
         function goToStep(step) {
             const currentEl = document.getElementById(`step-${currentStep}`);
             currentEl.classList.add('hidden');
-            
+
             const nextEl = document.getElementById(`step-${step}`);
             nextEl.classList.remove('hidden');
             nextEl.classList.add('fade-in');
-            
+
             currentStep = step;
             updateProgress();
-            
-            if(step === 4) initGame();
-            if(step === 3) initSlider();
+
+            if (step === 4) initGame();
+            if (step === 3) initSlider();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -396,7 +629,7 @@
                 txt.style.opacity = '1';
                 createHeartEffect();
                 reasonCount++;
-                if(reasonCount >= 3) {
+                if (reasonCount >= 3) {
                     const btn = document.getElementById('next-to-3');
                     btn.classList.remove('hidden');
                     btn.classList.add('fade-in');
@@ -406,27 +639,42 @@
 
         // 4. Memory Matching Game
         function initGame() {
-            const icons = ['❤️', '💖', '🌹', '🧸', '❤️', '💖', '🌹', '🧸'];
-            const shuffled = icons.sort(() => Math.random() - 0.5);
+            // ใช้รูปภาพแทน icons
+            const images = [
+                'image/lovelove (1).jpg',
+                'image/lovelove (2).jpg',
+                'image/lovelove (3).jpg',
+                'image/lovelove (4).jpg',
+                'image/lovelove (1).jpg',
+                'image/lovelove (2).jpg',
+                'image/lovelove (3).jpg',
+                'image/lovelove (4).jpg'
+            ];
+            const shuffled = images.sort(() => Math.random() - 0.5);
             const grid = document.getElementById('game-grid');
             grid.innerHTML = '';
             let flipped = [];
             let matched = 0;
 
-            shuffled.forEach((icon, i) => {
+            shuffled.forEach((imgSrc, i) => {
                 const card = document.createElement('div');
                 card.className = 'card';
-                card.innerHTML = `<div class="front">❓</div><div class="back">${icon}</div>`;
+                // ใส่รูปภาพในด้านหลังการ์ด
+                card.innerHTML = `<div class="front">❓</div><div class="back"><img src="${imgSrc}" style="width:100%; height:100%; object-fit:cover; border-radius:10px;"></div>`;
                 card.onclick = () => {
-                    if(flipped.length < 2 && !card.classList.contains('flipped')) {
+                    if (flipped.length < 2 && !card.classList.contains('flipped')) {
                         card.classList.add('flipped');
                         flipped.push(card);
-                        if(flipped.length === 2) {
+                        if (flipped.length === 2) {
                             setTimeout(() => {
-                                if(flipped[0].querySelector('.back').innerText === flipped[1].querySelector('.back').innerText) {
+                                // เปรียบเทียบ src ของรูปภาพ
+                                const img1 = flipped[0].querySelector('.back img').src;
+                                const img2 = flipped[1].querySelector('.back img').src;
+
+                                if (img1 === img2) {
                                     matched++;
                                     createHeartEffect();
-                                    if(matched === 4) {
+                                    if (matched === 4) {
                                         const btn = document.getElementById('next-to-5');
                                         btn.classList.remove('hidden');
                                         btn.classList.add('fade-in');
@@ -443,58 +691,115 @@
             });
         }
 
-        // 5. Touch Slider (Updated for 6 slides)
+        // 5. Touch Slider & Navigation
+        let currentSlideIdx = 0;
+        const slidesCount = 6;
+
         function initSlider() {
             const track = document.getElementById('slider-track');
             let startX = 0;
-            let currentIdx = 0;
-            const slidesCount = 6;
 
             track.addEventListener('touchstart', (e) => startX = e.touches[0].clientX);
+
             track.addEventListener('touchend', (e) => {
                 const endX = e.changedTouches[0].clientX;
-                if(startX - endX > 50 && currentIdx < slidesCount - 1) currentIdx++;
-                if(startX - endX < -50 && currentIdx > 0) currentIdx--;
-                track.style.transform = `translateX(-${currentIdx * 100}%)`;
-                createHeartEffect();
+                if (startX - endX > 50) moveSlide(1);
+                if (startX - endX < -50) moveSlide(-1);
             });
+        }
+
+        function moveSlide(step) {
+            currentSlideIdx += step;
+
+            // Clamp value
+            if (currentSlideIdx < 0) currentSlideIdx = 0;
+            if (currentSlideIdx >= slidesCount) currentSlideIdx = slidesCount - 1;
+
+            const track = document.getElementById('slider-track');
+            track.style.transform = `translateX(-${currentSlideIdx * 100}%)`;
+            createHeartEffect();
         }
 
         // 6. Gift & Final Reveal Logic
         function openGift() {
             const box = document.getElementById('gift-box');
-            if(box.classList.contains('open')) return;
-            
-            box.innerText = '🌹';
+            if (box.classList.contains('open')) return;
+
+            // Start Slideshow inside the box
+            let imgIdx = 1;
+            box.innerHTML = `<img src="image/lovelove (1).jpg" alt="Surprise">`;
             box.classList.add('open');
             document.getElementById('gift-hint').innerHTML = `รัก ${partnerName} ที่สุดในโลกเลย! ❤️`;
-            
-            for(let i=0; i<15; i++) setTimeout(createHeartEffect, i * 150);
-            setTimeout(revealAllSections, 2500);
+
+            // Slideshow Interval
+            let slideInterval = setInterval(() => {
+                imgIdx = (imgIdx % 6) + 1;
+                box.innerHTML = `<img src="image/lovelove (${imgIdx}).jpg" alt="Surprise">`;
+            }, 600); // Change image every 600ms
+
+            // Start falling effect
+            let duration = 5000; // Run for 5 seconds
+            let fallingInterval = setInterval(createFallingEffect, 200);
+
+            setTimeout(() => {
+                clearInterval(slideInterval);
+                clearInterval(fallingInterval);
+                revealAllSections();
+            }, duration);
+        }
+
+        function createFallingEffect() {
+            const types = ['image', 'heart'];
+            const type = types[Math.floor(Math.random() * types.length)];
+            const el = document.createElement('div');
+            el.className = 'falling-item';
+
+            const startLeft = Math.random() * 90 + 5; // 5% to 95%
+            const duration = Math.random() * 3 + 2; // 2-5s
+            const size = Math.random() * 20 + 30; // 30-50px for hearts
+
+            el.style.left = startLeft + 'vw';
+            el.style.animationDuration = duration + 's';
+
+            if (type === 'image') {
+                const imgNum = Math.floor(Math.random() * 6) + 1;
+                el.innerHTML = `<img src="image/lovelove (${imgNum}).jpg" style="width: 80px; height: 80px; object-fit: cover; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">`;
+            } else {
+                const hearts = ['❤️', '💖', '💗', '💕', '🌹', '🥰'];
+                el.innerText = hearts[Math.floor(Math.random() * hearts.length)];
+                el.style.fontSize = Math.random() * 1.5 + 1.5 + 'rem';
+            }
+
+            document.body.appendChild(el);
+
+            // Remove element after animation
+            setTimeout(() => {
+                el.remove();
+            }, duration * 1000);
         }
 
         function revealAllSections() {
             document.body.classList.add('full-view-mode');
-            
+
             const finalWrapper = document.getElementById('final-wrapper');
             const fullContent = document.getElementById('full-page-content');
-            
+
             document.getElementById('final-partner-name').innerText = `ถึง... ${partnerName} ของฉัน`;
 
             // Move steps into the final summary
-            for(let i=1; i<=5; i++) {
+            for (let i = 1; i <= 5; i++) {
                 const step = document.getElementById(`step-${i}`);
                 step.classList.remove('hidden', 'fade-in');
-                
+
                 const btn = step.querySelector('.btn-next');
-                if(btn) btn.classList.add('hidden');
-                
+                if (btn) btn.classList.add('hidden');
+
                 fullContent.appendChild(step);
             }
 
             finalWrapper.classList.remove('hidden');
             document.getElementById('progress-container').classList.add('hidden');
-            
+
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -502,7 +807,7 @@
         function createHeartEffect() {
             const h = document.createElement('div');
             h.className = 'floating-heart';
-            h.innerText = ['❤️','💖','💗','💕'][Math.floor(Math.random()*4)];
+            h.innerText = ['❤️', '💖', '💗', '💕'][Math.floor(Math.random() * 4)];
             h.style.left = Math.random() * 80 + 10 + 'vw';
             h.style.top = '60vh';
             document.body.appendChild(h);
@@ -512,14 +817,15 @@
         function toggleMusic() {
             const m = document.getElementById('bg-music');
             const btn = document.getElementById('music-btn');
-            if(m.paused) { 
+            if (m.paused) {
                 m.play().catch(e => console.log("Audio play blocked"));
-                btn.innerText = '🎵'; 
-            } else { 
-                m.pause(); 
-                btn.innerText = '🔇'; 
+                btn.innerText = '🎵';
+            } else {
+                m.pause();
+                btn.innerText = '🔇';
             }
         }
     </script>
 </body>
+
 </html>
