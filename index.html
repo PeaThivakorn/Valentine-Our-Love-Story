@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Love Story - Happy Valentine's Day</title>
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pink-pastel: #FFC0CB;
+            --cream: #FFF5F5;
+            --soft-red: #FF6B81;
+            --dark-pink: #e85a71;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Mali', cursive;
+            background-color: var(--cream);
+            color: #4a4a4a;
+            overflow-x: hidden;
+            line-height: 1.6;
+            transition: background-color 0.5s ease;
+        }
+
+        /* Scroll Snapping สำหรับหน้าสรุป */
+        .full-view-mode {
+            scroll-snap-type: y mandatory;
+            overflow-y: scroll;
+            height: 100vh;
+        }
+
+        .hidden { display: none !important; }
+        
+        .fade-in { animation: fadeIn 0.8s ease-out forwards; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Progress Bar */
+        #progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: rgba(255,192,203,0.2);
+            z-index: 1100;
+        }
+        #progress-bar {
+            width: 0%;
+            height: 100%;
+            background: var(--soft-red);
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Splash Screen */
+        #splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--pink-pastel), var(--cream));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1200;
+            text-align: center;
+            transition: opacity 0.5s ease;
+        }
+
+        .btn-main {
+            background-color: var(--soft-red);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 107, 129, 0.3);
+            font-family: 'Mali', cursive;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            width: 80%;
+            max-width: 280px;
+        }
+        .btn-main:hover { background-color: var(--dark-pink); transform: translateY(-2px); }
+        .btn-main:active { transform: scale(0.95); }
+        .btn-next { background-color: var(--dark-pink); margin-top: 30px; animation: pulse 2s infinite; }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(232, 90, 113, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(232, 90, 113, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(232, 90, 113, 0); }
+        }
+
+        /* Step Content */
+        .step-content {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 24px;
+            text-align: center;
+            scroll-snap-align: start;
+            width: 100%;
+        }
+
+        .section-card {
+            background: white;
+            padding: 30px 24px;
+            border-radius: 30px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+        }
+
+        /* Timeline Style */
+        .timeline-box {
+            border-left: 3px dashed var(--pink-pastel);
+            padding-left: 20px;
+            text-align: left;
+            margin: 20px 0;
+        }
+        .timeline-item { margin-bottom: 25px; position: relative; }
+        .timeline-item::before {
+            content: '❤';
+            position: absolute;
+            left: -31px;
+            top: 0;
+            background: var(--cream);
+            color: var(--soft-red);
+            padding: 2px;
+        }
+
+        /* Game Grid */
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            width: 100%;
+            max-width: 360px;
+            margin: 25px 0;
+        }
+        .card {
+            aspect-ratio: 1/1;
+            background: var(--pink-pastel);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            transform-style: preserve-3d;
+        }
+        .card.flipped { transform: rotateY(180deg); background: white; border: 2px solid var(--pink-pastel); }
+        .card .front, .card .back { position: absolute; backface-visibility: hidden; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+        .card .back { transform: rotateY(180deg); }
+
+        /* Slider */
+        .slider-container { width: 100%; max-width: 400px; overflow: hidden; border-radius: 25px; box-shadow: var(--shadow); position: relative; }
+        .slider-track { display: flex; transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+        .slide { min-width: 100%; height: 300px; display: flex; align-items: center; justify-content: center; font-size: 5rem; background: #fdfdfd; }
+        .slide img { width: 100%; height: 100%; object-fit: cover; border-radius: 25px; }
+
+        /* Gift Animation */
+        .gift-box { font-size: 7rem; cursor: pointer; transition: 0.3s; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1)); }
+        .gift-box:hover { transform: scale(1.1); }
+        .gift-box.open { animation: bounceIn 0.8s ease forwards; }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); }
+        }
+
+        /* Final Header */
+        .final-header {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            scroll-snap-align: start;
+            background: linear-gradient(to bottom, var(--white), var(--cream));
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* UI Elements */
+        .audio-toggle { position: fixed; bottom: 25px; right: 25px; background: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow); z-index: 1000; cursor: pointer; border: 2px solid var(--cream); }
+        .floating-heart { position: fixed; pointer-events: none; z-index: 999; animation: floatUp 2.5s ease-out forwards; font-size: 1.5rem; }
+        @keyframes floatUp { 
+            0% { transform: translateY(0) scale(1) rotate(0); opacity: 1; } 
+            100% { transform: translateY(-150px) scale(2) rotate(45deg); opacity: 0; } 
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-10px);}
+            60% {transform: translateY(-5px);}
+        }
+    </style>
+</head>
+<body>
+
+    <div id="progress-container" class="hidden"><div id="progress-bar"></div></div>
+
+    <!-- Splash Screen -->
+    <div id="splash-screen">
+        <div style="font-size: 5.5rem; filter: drop-shadow(0 10px 10px rgba(0,0,0,0.1));">💝</div>
+        <h1 style="color: var(--dark-pink); margin-top: 15px; font-size: 2rem;">Our Love Story</h1>
+        <p style="color: #888; margin-top: 5px;">บันทึกการเดินทางของเราสองคน</p>
+        <button class="btn-main" onclick="startStory()">💗 กดเพื่อเริ่มต้น</button>
+    </div>
+
+    <!-- Audio Toggle -->
+    <div class="audio-toggle hidden" id="music-btn" onclick="toggleMusic()">🔇</div>
+    <audio id="bg-music" loop>
+        <source src="mp3/Valentines.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="story-container" class="hidden">
+        
+        <!-- Step 1: Timeline -->
+        <div id="step-1" class="step-content">
+            <h2 style="color: var(--dark-pink); margin-bottom: 20px;">จุดเริ่มต้นของเรา 🗓️</h2>
+            <div class="section-card">
+                <div class="timeline-box">
+                    <div class="timeline-item">
+                        <p style="font-weight: bold; color: var(--soft-red);">วันแรกที่พบกัน</p>
+                        <p style="font-size: 0.9rem;">ความรู้สึกแรกที่ได้เจอเธอ ยังจำได้ไม่เคยลืมเลย</p>
+                    </div>
+                    <div class="timeline-item">
+                        <p style="font-weight: bold; color: var(--soft-red);">เดทแรกที่แสนพิเศษ</p>
+                        <p style="font-size: 0.9rem;">การได้ใช้เวลาด้วยกันครั้งแรก มันดีกว่าที่คิดไว้มาก</p>
+                    </div>
+                    <div class="timeline-item" style="margin-bottom: 0;">
+                        <p style="font-weight: bold; color: var(--soft-red);">ปัจจุบัน</p>
+                        <p style="font-size: 0.9rem;">ขอบคุณที่ยังอยู่ข้างกัน และดูแลกันเป็นอย่างดีนะ</p>
+                    </div>
+                </div>
+            </div>
+            <button class="btn-main btn-next" onclick="goToStep(2)">ต่อไป: ทำไมฉันถึงรักเธอ ✨</button>
+        </div>
+
+        <!-- Step 2: Reasons -->
+        <div id="step-2" class="step-content hidden">
+            <h2 style="color: var(--dark-pink); margin-bottom: 20px;">เหตุผลที่รักเธอ 💌</h2>
+            <div class="section-card">
+                <div id="reason-box" style="min-height: 120px; display: flex; align-items: center; justify-content: center; padding: 10px;">
+                    <p id="reason-text" style="font-size: 1.1rem; color: #555;">ลองกดปุ่มด้านล่างสิมีอะไรจะบอก...</p>
+                </div>
+            </div>
+            <button class="btn-main" onclick="nextReason()">💌 สุ่มเหตุผลที่รัก</button>
+            <button id="next-to-3" class="btn-main btn-next hidden" onclick="goToStep(3)">ต่อไป: อัลบั้มของเรา 📸</button>
+        </div>
+
+        <!-- Step 3: Gallery -->
+        <div id="step-3" class="step-content hidden">
+            <h2 style="color: var(--dark-pink); margin-bottom: 20px;">ความทรงจำที่งดงาม 📸</h2>
+            <div class="slider-container" id="slider">
+                <div class="slider-track" id="slider-track">
+                    <div class="slide"><img src="image/lovelove (1).jpg" alt="Memory 1" onerror="this.src='https://placehold.co/400x300?text=Memory+1'"></div>
+                    <div class="slide"><img src="image/lovelove (2).jpg" alt="Memory 2" onerror="this.src='https://placehold.co/400x300?text=Memory+2'"></div>
+                    <div class="slide"><img src="image/lovelove (3).jpg" alt="Memory 3" onerror="this.src='https://placehold.co/400x300?text=Memory+3'"></div>
+                    <div class="slide"><img src="image/lovelove (4).jpg" alt="Memory 4" onerror="this.src='https://placehold.co/400x300?text=Memory+4'"></div>
+                    <div class="slide"><img src="image/lovelove (5).jpg" alt="Memory 5" onerror="this.src='https://placehold.co/400x300?text=Memory+5'"></div>
+                    <div class="slide"><img src="image/lovelove (6).jpg" alt="Memory 6" onerror="this.src='https://placehold.co/400x300?text=Memory+6'"></div>
+                </div>
+            </div>
+            <p style="margin-top: 15px; font-size: 0.9rem; color: #999;">(ลองปัดซ้าย-ขวา เพื่อดูภาพถัดไป)</p>
+            <button class="btn-main btn-next" onclick="goToStep(4)">ต่อไป: ทดสอบความจำ 💘</button>
+        </div>
+
+        <!-- Step 4: Game -->
+        <div id="step-4" class="step-content hidden">
+            <h2 style="color: var(--dark-pink); margin-bottom: 10px;">จับคู่หัวใจ 💘</h2>
+            <p style="margin-bottom: 20px; font-size: 0.9rem;">หาคู่ที่เหมือนกันให้เจอเพื่อปลดล็อกของขวัญ!</p>
+            <div class="game-grid" id="game-grid"></div>
+            <button id="next-to-5" class="btn-main btn-next hidden" onclick="goToStep(5)">ต่อไป: ของขวัญสุดท้าย 🎁</button>
+        </div>
+
+        <!-- Step 5: Surprise -->
+        <div id="step-5" class="step-content hidden">
+            <h2 style="color: var(--dark-pink); margin-bottom: 30px;">ของขวัญสำหรับเธอ 🎁</h2>
+            <div class="gift-box" id="gift-box" onclick="openGift()">🎁</div>
+            <p id="gift-hint" style="margin-top: 20px;">แตะที่กล่องเพื่อเปิดดูความในใจ...</p>
+        </div>
+
+        <!-- Final Reveal Wrapper -->
+        <div id="final-wrapper" class="hidden">
+            <header class="final-header">
+                <div style="font-size: 5rem; margin-bottom: 20px;">✨❤️✨</div>
+                <h1 style="color: var(--soft-red); font-size: 2.2rem;">Happy Valentine's Day</h1>
+                <p id="final-partner-name" style="font-size: 1.2rem; color: var(--dark-pink);"></p>
+                <div style="margin-top: 40px; animation: bounce 2s infinite;">
+                    <p style="font-size: 0.8rem; color: #aaa;">เลื่อนลงเพื่อดูสรุปเรื่องราวของเรา</p>
+                    <div style="font-size: 1.5rem;">↓</div>
+                </div>
+            </header>
+            
+            <div id="full-page-content"></div>
+            
+            <div class="step-content" style="background: white;">
+                <h2 style="color: var(--soft-red);">สัญญาใจ ✍</h2>
+                <div class="section-card">
+                    <p>"ไม่ว่าจะเกิดอะไรขึ้น ฉันสัญญาว่าจะอยู่ตรงนี้ข้างๆ เธอเสมอ ขอบคุณที่เป็นความสุขให้กันนะ"</p>
+                </div>
+                <footer style="margin-top: 50px; color: #ccc; font-size: 0.8rem;">
+                    Our Forever Story &copy; 2024
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 5;
+        const partnerName = "ที่รัก"; // แก้ไขชื่อแฟนได้ที่นี่
+        const reasons = [
+            "เพราะเธอยิ้มแล้วโลกสดใสขึ้นมากๆ เลย",
+            "เพราะเธอคอยรับฟังและอยู่ข้างๆ กันในวันที่ฉันเหนื่อย",
+            "เพราะเธอคือคนที่ทำให้ฉันหัวเราะได้เสมอ",
+            "เพราะทุกอย่างที่เป็นเธอ มันพิเศษสำหรับฉันนะ",
+            "เพราะฉันมองไม่เห็นอนาคตที่ไม่มีเธออยู่ด้วยแล้ว"
+        ];
+        let reasonCount = 0;
+
+        // 1. Initial State
+        function startStory() {
+            const splash = document.getElementById('splash-screen');
+            const audio = document.getElementById('bg-music');
+            const btn = document.getElementById('music-btn');
+
+            splash.style.opacity = '0';
+            
+            // Start music immediately upon user interaction
+            audio.play().then(() => {
+                btn.innerText = '🎵';
+            }).catch(e => console.log("Audio play blocked", e));
+
+            setTimeout(() => {
+                splash.classList.add('hidden');
+                document.getElementById('story-container').classList.remove('hidden');
+                document.getElementById('progress-container').classList.remove('hidden');
+                btn.classList.remove('hidden');
+                updateProgress();
+            }, 500);
+        }
+
+        // 2. Step Navigation
+        function goToStep(step) {
+            const currentEl = document.getElementById(`step-${currentStep}`);
+            currentEl.classList.add('hidden');
+            
+            const nextEl = document.getElementById(`step-${step}`);
+            nextEl.classList.remove('hidden');
+            nextEl.classList.add('fade-in');
+            
+            currentStep = step;
+            updateProgress();
+            
+            if(step === 4) initGame();
+            if(step === 3) initSlider();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function updateProgress() {
+            const percent = (currentStep / totalSteps) * 100;
+            document.getElementById('progress-bar').style.width = percent + '%';
+        }
+
+        // 3. Reasons Randomizer
+        function nextReason() {
+            const txt = document.getElementById('reason-text');
+            txt.style.opacity = '0';
+            setTimeout(() => {
+                txt.innerText = reasons[Math.floor(Math.random() * reasons.length)];
+                txt.style.opacity = '1';
+                createHeartEffect();
+                reasonCount++;
+                if(reasonCount >= 3) {
+                    const btn = document.getElementById('next-to-3');
+                    btn.classList.remove('hidden');
+                    btn.classList.add('fade-in');
+                }
+            }, 300);
+        }
+
+        // 4. Memory Matching Game
+        function initGame() {
+            const icons = ['❤️', '💖', '🌹', '🧸', '❤️', '💖', '🌹', '🧸'];
+            const shuffled = icons.sort(() => Math.random() - 0.5);
+            const grid = document.getElementById('game-grid');
+            grid.innerHTML = '';
+            let flipped = [];
+            let matched = 0;
+
+            shuffled.forEach((icon, i) => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `<div class="front">❓</div><div class="back">${icon}</div>`;
+                card.onclick = () => {
+                    if(flipped.length < 2 && !card.classList.contains('flipped')) {
+                        card.classList.add('flipped');
+                        flipped.push(card);
+                        if(flipped.length === 2) {
+                            setTimeout(() => {
+                                if(flipped[0].querySelector('.back').innerText === flipped[1].querySelector('.back').innerText) {
+                                    matched++;
+                                    createHeartEffect();
+                                    if(matched === 4) {
+                                        const btn = document.getElementById('next-to-5');
+                                        btn.classList.remove('hidden');
+                                        btn.classList.add('fade-in');
+                                    }
+                                } else {
+                                    flipped.forEach(c => c.classList.remove('flipped'));
+                                }
+                                flipped = [];
+                            }, 700);
+                        }
+                    }
+                };
+                grid.appendChild(card);
+            });
+        }
+
+        // 5. Touch Slider (Updated for 6 slides)
+        function initSlider() {
+            const track = document.getElementById('slider-track');
+            let startX = 0;
+            let currentIdx = 0;
+            const slidesCount = 6;
+
+            track.addEventListener('touchstart', (e) => startX = e.touches[0].clientX);
+            track.addEventListener('touchend', (e) => {
+                const endX = e.changedTouches[0].clientX;
+                if(startX - endX > 50 && currentIdx < slidesCount - 1) currentIdx++;
+                if(startX - endX < -50 && currentIdx > 0) currentIdx--;
+                track.style.transform = `translateX(-${currentIdx * 100}%)`;
+                createHeartEffect();
+            });
+        }
+
+        // 6. Gift & Final Reveal Logic
+        function openGift() {
+            const box = document.getElementById('gift-box');
+            if(box.classList.contains('open')) return;
+            
+            box.innerText = '🌹';
+            box.classList.add('open');
+            document.getElementById('gift-hint').innerHTML = `รัก ${partnerName} ที่สุดในโลกเลย! ❤️`;
+            
+            for(let i=0; i<15; i++) setTimeout(createHeartEffect, i * 150);
+            setTimeout(revealAllSections, 2500);
+        }
+
+        function revealAllSections() {
+            document.body.classList.add('full-view-mode');
+            
+            const finalWrapper = document.getElementById('final-wrapper');
+            const fullContent = document.getElementById('full-page-content');
+            
+            document.getElementById('final-partner-name').innerText = `ถึง... ${partnerName} ของฉัน`;
+
+            // Move steps into the final summary
+            for(let i=1; i<=5; i++) {
+                const step = document.getElementById(`step-${i}`);
+                step.classList.remove('hidden', 'fade-in');
+                
+                const btn = step.querySelector('.btn-next');
+                if(btn) btn.classList.add('hidden');
+                
+                fullContent.appendChild(step);
+            }
+
+            finalWrapper.classList.remove('hidden');
+            document.getElementById('progress-container').classList.add('hidden');
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // 7. Core Effects
+        function createHeartEffect() {
+            const h = document.createElement('div');
+            h.className = 'floating-heart';
+            h.innerText = ['❤️','💖','💗','💕'][Math.floor(Math.random()*4)];
+            h.style.left = Math.random() * 80 + 10 + 'vw';
+            h.style.top = '60vh';
+            document.body.appendChild(h);
+            setTimeout(() => h.remove(), 2500);
+        }
+
+        function toggleMusic() {
+            const m = document.getElementById('bg-music');
+            const btn = document.getElementById('music-btn');
+            if(m.paused) { 
+                m.play().catch(e => console.log("Audio play blocked"));
+                btn.innerText = '🎵'; 
+            } else { 
+                m.pause(); 
+                btn.innerText = '🔇'; 
+            }
+        }
+    </script>
+</body>
+</html>
